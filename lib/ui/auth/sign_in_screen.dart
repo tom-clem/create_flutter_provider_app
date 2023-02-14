@@ -67,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 TextFormField(
                   controller: _emailController,
-                  style: Theme.of(context).textTheme.body1,
+                  style: Theme.of(context).textTheme.bodyText2,
                   validator: (value) => value!.isEmpty
                       ? AppLocalizations.of(context)
                           .translate("loginTxtErrorEmail")
@@ -87,7 +87,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     obscureText: true,
                     maxLength: 12,
                     controller: _passwordController,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     validator: (value) => value!.length < 6
                         ? AppLocalizations.of(context)
                             .translate("loginTxtErrorPassword")
@@ -106,7 +106,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ? Center(
                         child: CircularProgressIndicator(),
                       )
-                    : RaisedButton(
+                    : ElevatedButton(
                         child: Text(
                           AppLocalizations.of(context)
                               .translate("loginBtnSignIn"),
@@ -123,7 +123,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                     _passwordController.text);
 
                             if (!status) {
-                              _scaffoldKey.currentState!.showSnackBar(SnackBar(
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
                                 content: Text(AppLocalizations.of(context)
                                     .translate("loginTxtErrorSignIn")),
                               ));
@@ -150,10 +151,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     ? Center(
                         child: null,
                       )
-                    : FlatButton(
-                        child: Text(AppLocalizations.of(context)
-                            .translate("loginBtnLinkCreateAccount")),
-                        textColor: Theme.of(context).iconTheme.color,
+                    : TextButton(
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .translate("loginBtnLinkCreateAccount"),
+                          style: TextStyle(
+                              color: Theme.of(context).iconTheme.color),
+                        ),
                         onPressed: () {
                           Navigator.of(context)
                               .pushReplacementNamed(Routes.register);
@@ -168,7 +172,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     Text(
                       Provider.of<Flavor>(context).toString(),
-                      style: Theme.of(context).textTheme.body2,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],
                 )),
